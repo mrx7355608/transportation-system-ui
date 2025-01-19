@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-const Signup = () => {
+const StudentRegistration = () => {
     return (
         <div className="container mx-auto px-4 py-8 mb-12">
             <h2 className="text-2xl text-center mb-9 font-semibold text-gray-800">
@@ -13,8 +12,7 @@ const Signup = () => {
                 method="POST"
                 className="bg-base-100 rounded-lg p-6 space-y-6"
             >
-                {/* Student Registration Form */}
-
+                {/* NAME & FATHER NAME */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="form-control">
                         <label htmlFor="name" className="label">
@@ -44,6 +42,37 @@ const Signup = () => {
                     </div>
                 </div>
 
+                {/* EMAIL & PASSWORD */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="form-control">
+                        <label htmlFor="email" className="label">
+                            <span className="label-text">Email</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                            className="input input-bordered w-full"
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label htmlFor="address" className="label">
+                            <span className="label-text">Address</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            placeholder="Enter your address"
+                            required
+                            className="input input-bordered w-full"
+                        />
+                    </div>
+                </div>
+
+                {/* PHONE NUMBER & CNIC */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="form-control">
                         <label htmlFor="phoneNumber" className="label">
@@ -73,6 +102,37 @@ const Signup = () => {
                     </div>
                 </div>
 
+                {/* PASSWORD & CONFIRM PASSWORD  */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="form-control">
+                        <label htmlFor="password" className="label">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                            className="input input-bordered w-full"
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label htmlFor="confirm-password" className="label">
+                            <span className="label-text">Confirm Password</span>
+                        </label>
+                        <input
+                            type="password"
+                            id="confirm-password"
+                            name="confirm_password"
+                            placeholder="Confirm your password"
+                            required
+                            className="input input-bordered w-full"
+                        />
+                    </div>
+                </div>
+
+                {/* CLASS & SECTION */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="form-control">
                         <label htmlFor="class" className="label">
@@ -102,6 +162,7 @@ const Signup = () => {
                     </div>
                 </div>
 
+                {/* UNI_ID & PROFILE PICTURE */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="form-control">
                         <label htmlFor="universityId" className="label">
@@ -132,19 +193,6 @@ const Signup = () => {
                 </div>
 
                 <div className="form-control">
-                    <label htmlFor="address" className="label">
-                        <span className="label-text">Address</span>
-                    </label>
-                    <textarea
-                        id="address"
-                        name="address"
-                        placeholder="Enter your address"
-                        required
-                        className="textarea textarea-bordered w-full"
-                    ></textarea>
-                </div>
-
-                <div className="form-control">
                     <button
                         type="submit"
                         className="btn btn-primary w-full text-white"
@@ -152,6 +200,7 @@ const Signup = () => {
                         Submit
                     </button>
                 </div>
+
                 <div className="text-center mt-8">
                     <p className="text-gray-600">
                         Already a member?
@@ -168,4 +217,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default StudentRegistration;
