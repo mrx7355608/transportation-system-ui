@@ -1,21 +1,28 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Input from "../components/ui/Input";
+import { useMutation } from "@apollo/client";
+import { AUTHENTICATE_USER } from "../graphql/mutations/auth";
 
 const Login = () => {
-    const [data, setData] = useState({
+    const [loginCreds, setLoginCreds] = useState({
         email: "",
         password: "",
     });
+    const [authenticateUser, { data, loading, error }] =
+        useMutation(AUTHENTICATE_USER);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setData({ ...data, [name]: value });
+        setLoginCreds({ ...loginCreds, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data);
+        const response = await authenticateUser({
+            variables: loginCreds,
+        });
+        console.log(response.data.authenticateUserWithPassword.item);
     };
 
     return (
@@ -54,8 +61,9 @@ const Login = () => {
                         <button
                             type="submit"
                             className="btn btn-primary w-full text-white"
+                            disabled={loading}
                         >
-                            Login
+                            {loading ? "Logging in..." : "Login"}
                         </button>
                     </div>
                 </form>
