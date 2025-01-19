@@ -1,8 +1,35 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Input from "../components/ui/Input";
 
 const StudentRegistration = () => {
-    const onChange = () => console.log("hello");
+    const [student, setStudent] = useState({
+        name: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        address: "",
+        fatherName: "",
+        cnic: "",
+        campus: "",
+        profilePicture: null,
+        uniCard: null,
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        if (name === "profilePicture" || name === "uniCard") {
+            setStudent({ ...student, [name]: e.target.files[0] });
+            return;
+        }
+        setStudent({ ...student, [name]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(student);
+    };
 
     return (
         <div className="container mx-auto px-4 py-8 mb-12">
@@ -12,6 +39,7 @@ const StudentRegistration = () => {
             <form
                 id="registrationForm"
                 className="bg-base-100 rounded-lg p-6 space-y-6"
+                onSubmit={handleSubmit}
             >
                 {/* NAME & FATHER NAME */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -20,14 +48,14 @@ const StudentRegistration = () => {
                         id={"name"}
                         name={"name"}
                         placeholder={"Enter your name"}
-                        onChange={() => console.log("hello")}
+                        onChange={handleChange}
                     />
                     <Input
                         label={"Father Name"}
                         id={"fatherName"}
                         name={"fatherName"}
                         placeholder={"Enter your father name"}
-                        onChange={() => console.log("hello")}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -39,14 +67,14 @@ const StudentRegistration = () => {
                         id={"email"}
                         name={"email"}
                         placeholder={"Enter your email"}
-                        onChange={() => console.log("hello")}
+                        onChange={handleChange}
                     />
                     <Input
                         label={"Address"}
                         id={"address"}
                         name={"address"}
                         placeholder={"Enter your address"}
-                        onChange={() => console.log("hello")}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -57,14 +85,14 @@ const StudentRegistration = () => {
                         id={"phoneNumber"}
                         name={"phoneNumber"}
                         placeholder={"Enter your phone number"}
-                        onChange={() => console.log("hello")}
+                        onChange={handleChange}
                     />
                     <Input
                         label={"Cnic"}
                         id={"cnic"}
                         name={"cnic"}
                         placeholder={"Enter your cnic number"}
-                        onChange={() => console.log("hello")}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -76,7 +104,7 @@ const StudentRegistration = () => {
                         id={"password"}
                         name={"password"}
                         placeholder={"Enter your password"}
-                        onChange={() => console.log("hello")}
+                        onChange={handleChange}
                     />
                     <Input
                         label={"Confirm Password"}
@@ -84,7 +112,7 @@ const StudentRegistration = () => {
                         id={"confirm_password"}
                         name={"confirmPassword"}
                         placeholder={"Confirm your password"}
-                        onChange={() => console.log("hello")}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -95,14 +123,14 @@ const StudentRegistration = () => {
                         id={"uniCard"}
                         name={"uniCard"}
                         type="file"
-                        onChange={onChange}
+                        onChange={handleChange}
                     />
                     <Input
                         label={"Profile picture"}
                         id={"profilePicture"}
                         name={"profilePicture"}
                         type="file"
-                        onChange={onChange}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -113,7 +141,7 @@ const StudentRegistration = () => {
                         id={"campus"}
                         name={"campus"}
                         placeholder={"Enter your campus"}
-                        onChange={onChange}
+                        onChange={handleChange}
                     />
                 </div>
 
