@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Input from "../components/ui/Input";
 import { useMutation } from "@apollo/client";
 import { AUTHENTICATE_USER } from "../graphql/mutations/auth";
+import { useAuth } from "../states/AuthProvier";
 
 const Login = () => {
+    const navigate = useNavigate();
+    const { setUser } = useAuth();
     const [loginCreds, setLoginCreds] = useState({
         email: "",
         password: "",
@@ -17,12 +20,14 @@ const Login = () => {
         setLoginCreds({ ...loginCreds, [name]: value });
     };
 
+    // Login user
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await authenticateUser({
             variables: loginCreds,
         });
-        console.log(response.data.authenticateUserWithPassword.item);
+        setUser(response.data.authenticateUserWithPassword.item);
+        navigate("/");
     };
 
     return (
