@@ -46,7 +46,7 @@ function UserMenu() {
                 className="btn btn-ghost btn-circle avatar"
             >
                 <div className="w-10 rounded-full">
-                    <img alt="User" src={user.image.publicUrl} />
+                    <img alt="User" src={user.image} />
                 </div>
             </div>
             <ul

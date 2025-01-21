@@ -3,8 +3,7 @@ import HomeLayout from "./layouts/HomeLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import StudentRegistration from "./pages/StudentRegistration";
-import DriverRegistration from "./pages/DriverRegistration";
+import Signup from "./pages/Signup";
 import { useAuth } from "./states/AuthProvier";
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
@@ -30,12 +29,8 @@ const router = createBrowserRouter([
                 element: <Login />,
             },
             {
-                path: "student-registration",
-                element: <StudentRegistration />,
-            },
-            {
-                path: "driver-registration",
-                element: <DriverRegistration />,
+                path: "sign-up",
+                element: <Signup />,
             },
         ],
     },
@@ -49,6 +44,7 @@ export default function App() {
     useEffect(() => {
         if (data) {
             setUser(data.authenticatedUser);
+            console.log(data);
         }
     }, [data]);
 

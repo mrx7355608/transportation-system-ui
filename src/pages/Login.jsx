@@ -8,11 +8,13 @@ import Input from "../components/ui/Input";
 export default function Login() {
     const navigate = useNavigate();
     const { setUser } = useAuth();
-    const [authenticateUser, { loading }] = useMutation(AUTHENTICATE_USER);
+    const [authenticateUser, { loading, error }] =
+        useMutation(AUTHENTICATE_USER);
     const [loginCreds, setLoginCreds] = useState({
         email: "",
         password: "",
     });
+    const [errorMessage, setErrorMessage] = useState("");
 
     return (
         <div className="flex flex-col justify-start items-center min-h-[80vh]">
@@ -22,6 +24,11 @@ export default function Login() {
                 </h2>
             </div>
             <div className="card w-full max-w-md p-6 space-y-6">
+                {errorMessage && (
+                    <p className="text-red-800 font-medium bg-red-200 rounded-lg p-4">
+                        {errorMessage}
+                    </p>
+                )}
                 <form
                     id="loginForm"
                     method="POST"
@@ -59,19 +66,15 @@ export default function Login() {
 
                 {/* Signup Link */}
                 <div className="text-center">
-                    <Link
-                        to="/auth/student-registration"
-                        className="underline hover:underline"
-                    >
-                        Register as a student
-                    </Link>
-                    <br />
-                    <Link
-                        to="/auth/driver-registration"
-                        className="underline hover:underline"
-                    >
-                        Register as a driver
-                    </Link>
+                    <p>
+                        Not a member?{" "}
+                        <Link
+                            to="/auth/sign-up"
+                            className="text-primary font-medium underline hover:underline"
+                        >
+                            Signup
+                        </Link>
+                    </p>
                 </div>
             </div>
         </div>
@@ -84,11 +87,21 @@ export default function Login() {
 
     // Login user
     async function login(e) {
-        e.preventDefault();
-        const response = await authenticateUser({
-            variables: loginCreds,
-        });
-        setUser(response.data.authenticateUserWithPassword.item);
-        navigate("/");
+        try {
+            e.preventDefault();
+            const response = await authenticateUser({
+                variables: loginCreds,
+            });
+            setUser(response.data.authenticateUserWithPassword.item);
+            navigate("/");
+        } catch (err) {
+            console.log(error);
+            if (err.message.includes("didn't identify")) {
+                setErrorMessage("Incorrect email or password");
+            } else {
+                setErrorMessage("Internal server error");
+            }
+            setTimeout(() => setErrorMessage(""), 5000);
+        }
     }
 }
