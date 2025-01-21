@@ -1,6 +1,6 @@
 import { useAuth } from "../states/AuthProvier";
 
-const Home = () => {
+export default function Home() {
     const { user } = useAuth();
 
     return (
@@ -10,6 +10,4 @@ const Home = () => {
             </h1>
         </div>
     );
-};
-
-export default Home;
+}

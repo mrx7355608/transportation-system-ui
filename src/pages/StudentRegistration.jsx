@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Input from "../components/ui/Input";
 
-const StudentRegistration = () => {
+export default function StudentRegistration() {
     const [student, setStudent] = useState({
         name: "",
         email: "",
@@ -168,6 +168,4 @@ const StudentRegistration = () => {
             </form>
         </div>
     );
-};
-
-export default StudentRegistration;
+}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const DriverRegistration = () => {
+export default function DriverRegistration() {
     return (
         <div className="container mx-auto px-4 py-8 mb-12">
             <h2 className="text-2xl text-center mb-9 font-semibold text-gray-800">
@@ -78,6 +78,4 @@ const DriverRegistration = () => {
             </form>
         </div>
     );
-};
-
-export default DriverRegistration;
+}

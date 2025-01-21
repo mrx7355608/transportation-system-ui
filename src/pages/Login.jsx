@@ -1,34 +1,18 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Input from "../components/ui/Input";
+import { useAuth } from "../states/AuthProvier";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { AUTHENTICATE_USER } from "../graphql/mutations/auth";
-import { useAuth } from "../states/AuthProvier";
+import Input from "../components/ui/Input";
 
-const Login = () => {
+export default function Login() {
     const navigate = useNavigate();
     const { setUser } = useAuth();
+    const [authenticateUser, { loading }] = useMutation(AUTHENTICATE_USER);
     const [loginCreds, setLoginCreds] = useState({
         email: "",
         password: "",
     });
-    const [authenticateUser, { data, loading, error }] =
-        useMutation(AUTHENTICATE_USER);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setLoginCreds({ ...loginCreds, [name]: value });
-    };
-
-    // Login user
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const response = await authenticateUser({
-            variables: loginCreds,
-        });
-        setUser(response.data.authenticateUserWithPassword.item);
-        navigate("/");
-    };
 
     return (
         <div className="flex flex-col justify-start items-center min-h-[80vh]">
@@ -42,7 +26,7 @@ const Login = () => {
                     id="loginForm"
                     method="POST"
                     className="space-y-4"
-                    onSubmit={handleSubmit}
+                    onSubmit={login}
                 >
                     <Input
                         label={"Email address"}
@@ -92,6 +76,19 @@ const Login = () => {
             </div>
         </div>
     );
-};
 
-export default Login;
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setLoginCreds({ ...loginCreds, [name]: value });
+    }
+
+    // Login user
+    async function login(e) {
+        e.preventDefault();
+        const response = await authenticateUser({
+            variables: loginCreds,
+        });
+        setUser(response.data.authenticateUserWithPassword.item);
+        navigate("/");
+    }
+}
